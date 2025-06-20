@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 import com.projeto1.primeiro_exemplo.model.Produto;
+import com.projeto1.primeiro_exemplo.model.exception.ResourceNotFoundException;
 
 // garante que a classe possa ser usada com injeção de dependência
 @Repository
@@ -70,7 +71,7 @@ public class ProdutoRepository {
         Optional<Produto> produtoEncontrado = obterPorId(produto.getId());
         
         if (produtoEncontrado.isEmpty()){
-            throw new InputMismatchException("Produto não encontrado");
+            throw new ResourceNotFoundException("Produto não pode ser atualizado porque não existe");
         }
 
         // remover o produto antigo da lista
