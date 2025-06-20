@@ -11,6 +11,8 @@ import com.projeto1.primeiro_exemplo.model.Produto;
 // garante que a classe possa ser usada com injeção de dependência
 @Repository
 public class ProdutoRepository {
+
+    // Simulando o banco de dados
     private List<Produto> produtos = new ArrayList<Produto>();
     private Integer ultimoId = 0;
 
