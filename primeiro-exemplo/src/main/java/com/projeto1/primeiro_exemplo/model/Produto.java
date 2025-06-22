@@ -1,9 +1,18 @@
 package com.projeto1.primeiro_exemplo.model;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Produto {
 
     //#region Atributos
 
+    @Id // vai transfomrar essa coluna em primary key
+    @GeneratedValue(strategy = GenerationType.AUTO) // qual estratégia de atualização da base a gente vai usar
     private Integer id;
 
     private String nome;

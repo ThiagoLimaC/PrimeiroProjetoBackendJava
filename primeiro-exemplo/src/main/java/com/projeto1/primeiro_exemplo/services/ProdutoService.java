@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projeto1.primeiro_exemplo.model.Produto;
-import com.projeto1.primeiro_exemplo.repository.ProdutoRepository;
+import com.projeto1.primeiro_exemplo.repository.ProdutoRepository_old;
 
 // define que a classe implementa o repository
 @Service
@@ -16,7 +16,7 @@ public class ProdutoService {
     
     // intância pronta da injeção de depedência
     @Autowired
-    private ProdutoRepository produtoRepository;
+    private ProdutoRepository_old produtoRepository;
 
     /**
      * Metodo para retornar uma lista de produtos
