@@ -9,3 +9,4 @@ import com.projeto1.primeiro_exemplo.model.Produto;
 public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
     
 }
+

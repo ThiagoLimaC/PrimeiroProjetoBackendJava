@@ -1,4 +1,4 @@
-package com.projeto1.primeiro_exemplo.controller;
+package com.projeto1.primeiro_exemplo.view.controller;
 
 import java.util.List;
 import java.util.Optional;
