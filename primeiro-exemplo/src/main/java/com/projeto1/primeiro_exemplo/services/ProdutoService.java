@@ -1,5 +1,6 @@
 package com.projeto1.primeiro_exemplo.services;
 
+import java.lang.classfile.ClassFile.Option;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import com.projeto1.primeiro_exemplo.model.Produto;
 import com.projeto1.primeiro_exemplo.model.exception.ResourceNotFoundException;
@@ -69,14 +71,36 @@ public class ProdutoService {
        // poderia ter alguma regra de negócio para validar o produto.
        produtoDto.setId(null); 
 
-       produtoRepository.save(produto);
+       // Criar um objeto de mapeamento
+       ModelMapper mapper = new ModelMapper();
+
+       // Converter o nosso ProdutoDto em um Produto
+       Produto produto = mapper.map(produtoDto, Produto.class);
+
+       // Salvar o produto no banco
+       produto = produtoRepository.save(produto);
+
+       produtoDto.setId(produto.getId());
+
+       // Retornar o ProdutoDto atualizado
+
+       return produtoDto;
     }
 
     /**
      * Metodo para deletar o produto por Id
      * @param id do produto a ser deletado
      */
-    public void deletar(int id){
+    public void deletar(Integer id){
+
+        // Verificar se o produto existe
+        Optional<Produto> produto = produtoRepository.findById(id);
+
+        // Se não existir lança uma exception
+        if (produto.isEmpty()) {
+            throw new ResourceNotFoundException("Produto com id: " + id + " não encontrado");
+        }
+
         produtoRepository.deleteById(id);
     }
 
@@ -86,11 +110,22 @@ public class ProdutoService {
      * @param id do produto
      * @return o produto após atualizar a lista
      */
-    public ProdutoDTO atualizar(Integer id, ProdutoDTO produto){
-        // Ter alguma validação
-        produto.setId(id);
+    public ProdutoDTO atualizar(Integer id, ProdutoDTO produtoDto){
+        
+        // Passar o id para o produtoDto
+        produtoDto.setId(id);
 
-        return produtoRepository.save(produto);
+        // Criar um objeto de mapeamento
+        ModelMapper mapper = new ModelMapper();
+
+        // Converter o DTO em um produto
+        Produto produto = mapper.map(produtoDto, Produto.class);
+
+        // Atualizar o produto no Banco de Dados
+        produtoRepository.save(produto);
+
+        // Retornar o produtoDto atualizado
+        return produtoDto;
     }
 
 }
